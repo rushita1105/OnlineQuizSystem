@@ -1,0 +1,152 @@
+@model OnlineQuizSystem.Models.AddQuestionViewModel
+@{
+    ViewBag.Title = "Add Question";
+}
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h2 class="admin-title">Add Question</h2>
+    </div>
+
+    <div class="question-form-container">
+        <form method="post" class="question-form">
+            <div class="form-group">
+                <label asp-for="QuizType" class="control-label">Quiz Type:</label>
+                <input asp-for="QuizType" class="form-control" placeholder="Enter quiz type (e.g., Mathematics, Science, History)" />
+                <span asp-validation-for="QuizType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="QuestionText" class="control-label">Question Text:</label>
+                <textarea asp-for="QuestionText" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="QuestionText" class="text-danger"></span>
+            </div>
+
+            <div class="options-container">
+                <h4>Answer Options</h4>
+                
+                <div class="form-group">
+                    <label asp-for="Option1" class="control-label">Option 1:</label>
+                    <div class="option-input">
+                        <input asp-for="Option1" class="form-control" />
+                        <div class="form-check">
+                            <input type="radio" asp-for="CorrectAnswer" value="1" class="form-check-input" id="correct1" />
+                            <label class="form-check-label" for="correct1">Correct Answer</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Option1" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Option2" class="control-label">Option 2:</label>
+                    <div class="option-input">
+                        <input asp-for="Option2" class="form-control" />
+                        <div class="form-check">
+                            <input type="radio" asp-for="CorrectAnswer" value="2" class="form-check-input" id="correct2" />
+                            <label class="form-check-label" for="correct2">Correct Answer</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Option2" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Option3" class="control-label">Option 3:</label>
+                    <div class="option-input">
+                        <input asp-for="Option3" class="form-control" />
+                        <div class="form-check">
+                            <input type="radio" asp-for="CorrectAnswer" value="3" class="form-check-input" id="correct3" />
+                            <label class="form-check-label" for="correct3">Correct Answer</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Option3" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Option4" class="control-label">Option 4:</label>
+                    <div class="option-input">
+                        <input asp-for="Option4" class="form-control" />
+                        <div class="form-check">
+                            <input type="radio" asp-for="CorrectAnswer" value="4" class="form-check-input" id="correct4" />
+                            <label class="form-check-label" for="correct4">Correct Answer</label>
+                        </div>
+                    </div>
+                    <span asp-validation-for="Option4" class="text-danger"></span>
+                </div>
+            </div>
+
+            <span asp-validation-for="CorrectAnswer" class="text-danger d-block mb-3"></span>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Add Question
+                </button>
+                <a href="/Admin/Dashboard" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+.question-form-container {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.question-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.options-container {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 6px;
+    margin: 1.5rem 0;
+}
+
+.options-container h4 {
+    margin-bottom: 1rem;
+    color: #495057;
+}
+
+.option-input {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.option-input .form-control {
+    flex: 1;
+}
+
+.form-check {
+    margin: 0;
+    min-width: 120px;
+}
+
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.text-danger {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+</style>

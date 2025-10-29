@@ -1,0 +1,28 @@
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@model OnlineQuizSystem.Models.LoginViewModel
+
+<form method="post">
+    <div>
+        <label asp-for="Username"></label>
+        <input asp-for="Username" />
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <button type="submit">Login</button>
+</form>
+
+<p style="color:red">@ViewBag.Message</p>
+<a href="/Account/Register">Register Here</a>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,81 @@
+@model List<OnlineQuizSystem.Models.ResultViewModel>
+@{
+    ViewBag.Title = "Quiz Results";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/results.css" asp-append-version="true" />
+}
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h2 class="admin-title">Quiz Results</h2>
+        <a href="/Admin/Dashboard" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to Dashboard
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> No quiz results available yet.
+        </div>
+    }
+    else
+    {
+        <div class="results-container">
+            <div class="results-summary">
+                <div class="summary-card">
+                    <div class="summary-title">Total Attempts</div>
+                    <div class="summary-value">@Model.Count</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-title">Average Score</div>
+                    <div class="summary-value">@Math.Round(Model.Average(r => r.Percentage), 1)%</div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-title">Highest Score</div>
+                    <div class="summary-value">@Math.Round(Model.Max(r => r.Percentage), 1)%</div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Score</th>
+                            <th>Total Questions</th>
+                            <th>Percentage</th>
+                            <th>Attempt Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var result in Model)
+                        {
+                            <tr>
+                                <td>@result.Username</td>
+                                <td>@result.Score / @result.TotalQuestions</td>
+                                <td>@result.TotalQuestions</td>
+                                <td>@result.Percentage%</td>
+                                <td>@result.AttemptDate.ToString("MMM dd, yyyy HH:mm")</td>
+                                <td>
+                                    @if (result.Percentage >= 70)
+                                    {
+                                        <span class="badge badge-success">Passed</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-danger">Failed</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+

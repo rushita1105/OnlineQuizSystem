@@ -1,0 +1,110 @@
+@model List<OnlineQuizSystem.Models.Question>
+@{
+    ViewBag.Title = ViewBag.QuizType + " Quiz";
+}
+
+<div class="quiz-container">
+    <div class="quiz-header">
+        <h2>@ViewBag.QuizType Quiz</h2>
+        <div class="quiz-info">
+            <span>Total Questions: @Model.Count</span>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            No questions are available for this quiz type. Please select a different quiz.
+        </div>
+        <a href="@Url.Action("StartQuiz")" class="btn btn-primary">
+            <i class="fas fa-arrow-left"></i> Back to Quiz Selection
+        </a>
+    }
+    else
+    {
+        <form method="post" action="@Url.Action("SubmitQuiz")" class="quiz-form">
+            @foreach(var q in Model)
+            {
+                <div class="question-card">
+                    <p class="question-text"><b>@q.Text</b></p>
+                    <div class="answers-list">
+                        @for(int i = 0; i < q.Answers.Count; i++)
+                        {
+                            <div class="answer-option">
+                                <input type="radio" id="q@(q.Id)_@i" name="@q.Id" value="@q.Answers[i].Text" required />
+                                <label for="q@(q.Id)_@i">@q.Answers[i].Text</label>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            <div class="quiz-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check-circle"></i> Submit Quiz
+                </button>
+                <a href="@Url.Action("StartQuiz")" class="btn btn-secondary">
+                    <i class="fas fa-times-circle"></i> Cancel
+                </a>
+            </div>
+        </form>
+    }
+</div>
+
+<style>
+.quiz-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.quiz-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+}
+
+.quiz-info {
+    color: #666;
+    margin-top: 0.5rem;
+}
+
+.question-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+.question-text {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.answers-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.answer-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.answer-option:hover {
+    background-color: #f8f9fa;
+}
+
+.quiz-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+</style>

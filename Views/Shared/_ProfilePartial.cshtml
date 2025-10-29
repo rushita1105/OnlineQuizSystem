@@ -1,0 +1,40 @@
+@{
+    var username = Context.Session.GetString("Username");
+    var isAdmin = Context.Session.GetString("IsAdmin") == "True";
+    var isLoggedIn = !string.IsNullOrEmpty(username);
+}
+
+<div class="profile-section">
+    @if (isLoggedIn)
+    {
+        <div class="profile-dropdown">
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-dropdown-content">
+                <div class="profile-info">
+                    <div class="profile-username">@username</div>
+                    <div class="profile-role">@(isAdmin ? "Administrator" : "User")</div>
+                </div>
+                @if (isAdmin)
+                {
+                    <a href="/Admin/Dashboard">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                }
+                <a href="/Account/ChangePassword">
+                    <i class="fas fa-key"></i> Change Password
+                </a>
+                <a href="/Account/Logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <a href="/Account/Login" class="btn btn-primary">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </a>
+    }
+</div>
